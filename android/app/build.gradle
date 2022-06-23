@@ -48,6 +48,8 @@ android {
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        // minifyEnabled false
+        // shrinkResources false
     }
 
     buildTypes {
