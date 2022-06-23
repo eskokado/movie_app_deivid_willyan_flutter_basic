@@ -10,9 +10,24 @@ class CustomListCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 200,
-      decoration: const BoxDecoration(color: Colors.black45),
+      decoration: BoxDecoration(
+        color: Colors.black45,
+        borderRadius: BorderRadius.circular(25),
+      ),
       child: Row(children: [
-        Image.network(API.REQUEST_IMG(movie.posterPath)),
+        ClipRRect(
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(25),
+            bottomLeft: Radius.circular(25),
+          ),
+          child: Image.network(
+            API.REQUEST_IMG(movie.posterPath),
+            loadingBuilder: (_, child, progress) {
+              if (progress == null) return child;
+              return const CircularProgressIndicator.adaptive();
+            },
+          ),
+        ),
         Expanded(
           child: Padding(
             padding: const EdgeInsets.all(20.0),

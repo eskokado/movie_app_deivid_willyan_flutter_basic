@@ -5,6 +5,8 @@ import 'package:movieapp/repositories/movies_repository_impl.dart';
 import 'package:movieapp/services/dio_service_impl.dart';
 import 'package:movieapp/widgets/custom_list_card_widget.dart';
 
+import 'package:lottie/lottie.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -30,9 +32,17 @@ class _HomePageState extends State<HomePage> {
               const SizedBox(
                 height: 40,
               ),
-              Text(
-                'Movies',
-                style: Theme.of(context).textTheme.headline3,
+              ValueListenableBuilder<Movies?>(
+                valueListenable: _controller.movies,
+                builder: (_, movies, __) {
+                  return Visibility(
+                    visible: movies != null,
+                    child: Text(
+                      'Movies',
+                      style: Theme.of(context).textTheme.headline3,
+                    ),
+                  );
+                }
               ),
               ValueListenableBuilder<Movies?>(
                 valueListenable: _controller.movies,
@@ -45,7 +55,7 @@ class _HomePageState extends State<HomePage> {
                           itemBuilder: (_, index) => CustomListCardWidget(movie: movies.listMovies[index]),
                           separatorBuilder: (_, __) => const Divider(),
                         )
-                      : Container();
+                      : Lottie.asset('assets/lottie.json');
                 },
               ),
             ],
